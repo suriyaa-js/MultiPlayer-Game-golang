@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package player;
+
+// Option for Go package
+option go_package = "suriyaa.com/models;player"; // Update this to your actual import path
+
+// Enum for game modes
+enum Mode {
+    MODE_UNSPECIFIED = 0; // Default value
+    SOLO = 1;             // Solo mode
+    DUO = 2;              // Duo mode
+    TRIO = 3;             // Trio mode
+    SQUAD = 4;            // Squad mode
+}
+
+// Player represents a game player with their current mode and area code.
+message Player {
+    string username = 1;   // Player's username
+    Mode mode = 2;         // Current mode the player is playing
+    string area_code = 3;   // Area code where the player is located
+}

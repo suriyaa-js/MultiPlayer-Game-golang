@@ -1,0 +1,333 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/v1/create-player": {
+            "post": {
+                "description": "Create a new player with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "players"
+                ],
+                "summary": "Create a new player on a persistant DB just to store permanently",
+                "parameters": [
+                    {
+                        "description": "Player data",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/end-game": {
+            "post": {
+                "description": "EndGame the game by taking the userName and areaCode.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "players"
+                ],
+                "summary": "EndGame the game by removing the player from cache for that areaCode",
+                "parameters": [
+                    {
+                        "description": "Player data",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.StringResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/get-player": {
+            "get": {
+                "description": "get a player with the provided userName",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "players"
+                ],
+                "summary": "get a exisitng player from a permanent DB",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Username of the player",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/mode-statistics": {
+            "get": {
+                "description": "GetPopularModes fetches popular multiplayer modes based on the area code.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "players"
+                ],
+                "summary": "Fetches the modes and the count of players for the mode",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "areaCode",
+                        "name": "areaCode",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handlers.gameModeCount"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/start-game": {
+            "post": {
+                "description": "StartGame set the Username and mode for the given areaCode(mandatory).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "players"
+                ],
+                "summary": "start the game by adding the player mode to that areaCode",
+                "parameters": [
+                    {
+                        "description": "Player data",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.StringResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/update-player": {
+            "post": {
+                "description": "update a player with the provided details areaCode is mandatory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "players"
+                ],
+                "summary": "update a exisitng player on a permanent DB",
+                "parameters": [
+                    {
+                        "description": "Player data",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/player.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.StringResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.gameModeCount": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "mode": {
+                    "type": "string"
+                }
+            }
+        },
+        "player.Mode": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+            ],
+            "x-enum-comments": {
+                "Mode_DUO": "Duo mode",
+                "Mode_MODE_UNSPECIFIED": "Default value",
+                "Mode_SOLO": "Solo mode",
+                "Mode_SQUAD": "Squad mode",
+                "Mode_TRIO": "Trio mode"
+            },
+            "x-enum-varnames": [
+                "Mode_MODE_UNSPECIFIED",
+                "Mode_SOLO",
+                "Mode_DUO",
+                "Mode_TRIO",
+                "Mode_SQUAD"
+            ]
+        },
+        "player.Player": {
+            "type": "object",
+            "properties": {
+                "area_code": {
+                    "description": "Area code where the player is located",
+                    "type": "string"
+                },
+                "mode": {
+                    "description": "Current mode the player is playing",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/player.Mode"
+                        }
+                    ]
+                },
+                "username": {
+                    "description": "Player's username",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
